@@ -15,6 +15,7 @@ public class PowerUp extends Actor{
     
     private int type;
     private GreenfootImage image;
+
     public PowerUp(int kind){
         type = kind;
         switch(type){
@@ -35,7 +36,9 @@ public class PowerUp extends Actor{
         }
         setImage(image);
     }
+
     public int type(){
         return type;
     }
+    
 }
