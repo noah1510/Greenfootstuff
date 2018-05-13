@@ -20,9 +20,9 @@ public class Worm extends Actor{
         switchImage();
 
     }
-    
-    public void switchImage()
-    {
+
+    private void switchImage(){
+
         if (getImage() == image1) {
             if(counter == 15){
                 setImage(image2);
