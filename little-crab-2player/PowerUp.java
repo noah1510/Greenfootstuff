@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * constructor braucht die art des PowerUps
+ * constructor needs the type of the powerup
  *  0 = Speed Up
  *  1 = Slow Others
  *  2 = Slow Lobster
@@ -40,5 +40,5 @@ public class PowerUp extends Actor{
     public int type(){
         return type;
     }
-    
+
 }
