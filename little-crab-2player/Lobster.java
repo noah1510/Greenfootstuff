@@ -98,6 +98,7 @@ public class Lobster extends Actor
                 kills++;
             }
             if(kills==playeramount){((CrabWorld)getWorld()).gameover();};
+            if(kills==playeramount-1){((CrabWorld)getWorld()).gameover();};
         }
     }
 }

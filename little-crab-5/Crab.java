@@ -44,6 +44,9 @@ public class Crab extends Actor
             lookForWorm();
             switchImage();
         }  
+        if(Greenfoot.isKeyDown("space")){
+            ((CrabWorld)getWorld()).start();
+        }
     }
     
     /**
@@ -79,9 +82,7 @@ public class Crab extends Actor
         {
             ((CrabWorld)getWorld()).stop();
         }
-        if(Greenfoot.isKeyDown("space")){
-            ((CrabWorld)getWorld()).start();
-        }
+        
     }
     
     /**
