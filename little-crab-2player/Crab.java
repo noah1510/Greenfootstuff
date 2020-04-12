@@ -148,43 +148,13 @@ public class Crab extends Actor
      */
     public void checkKeypress()
     {
-        switch(player_num){
-            case(1):
-                if (Greenfoot.isKeyDown("a")){
-                    turn(-4 - (int) (modifier * wormsEaten));
-                }
-                if (Greenfoot.isKeyDown("d")){
-                    turn(4 + (int) (modifier * wormsEaten));
-                }  
-                break;
-            case(2):
-                if (Greenfoot.isKeyDown("left")){
-                    turn(-4 - (int) (modifier * wormsEaten));
-                }
-                if (Greenfoot.isKeyDown("right")){
-                    turn(4 + (int) (modifier * wormsEaten));
-                } 
-                break;
-            case(3):
-                if (Greenfoot.isKeyDown("4")){
-                    turn(-4 - (int) (modifier * wormsEaten));
-                }
-                if (Greenfoot.isKeyDown("6")){
-                    turn(4 + (int) (modifier * wormsEaten));
-                } 
-                break;
-            case(4):
-                if (Greenfoot.isKeyDown("u")){
-                    turn(-4 - (int) (modifier * wormsEaten));
-                }
-                if (Greenfoot.isKeyDown("o")){
-                    turn(4 + (int) (modifier * wormsEaten));
-                } 
-                break;
-            default:
-                break;
-        }
-        
+        if(player_num <= CrabWorld.controls_player.length && player_num > 0){
+            if (Greenfoot.isKeyDown(CrabWorld.controls_player[player_num-1][0])){
+                turn(-4 - (int) (modifier * wormsEaten));
+            }else if (Greenfoot.isKeyDown(CrabWorld.controls_player[player_num-1][1])){
+                turn(4 + (int) (modifier * wormsEaten));
+            }    
+        }        
     }
     
     /**

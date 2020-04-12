@@ -10,7 +10,18 @@ public class CrabWorld extends World
     public Vector players;
     public Vector powerups;
     public Lobster lobster;
-    public int playernumber = 2;
+    
+    //defines the number of players
+    static final int playernumber = 2;
+    
+    //defines the controls of for each player from player number 1 to player number n (n = controls_player.length)
+    static final String[][] controls_player = {
+        {"a","d"},
+        {"left","right"},
+        {"4","6"},
+        {"u","o"}
+    };
+    
     /**
      * Create the crab world (the beach). Our world has a size 
      * of 560x560 cells, where every cell is just 1 pixel.
