@@ -21,9 +21,9 @@ public class Lobster extends Actor
     private int boosts = 0;
     private int slows = 0;
     
-    public Lobster(int players){
+    public Lobster(){
         canmove = true;
-        playeramount = players;
+        playeramount = CrabWorld.playernumber;
         playerscore = new Vector();
         playernumbers = new Vector();
     }
@@ -97,8 +97,7 @@ public class Lobster extends Actor
                 Greenfoot.playSound("au.wav");
                 kills++;
             }
-            if(kills==playeramount){((CrabWorld)getWorld()).gameover();};
-            if(kills==playeramount-1){((CrabWorld)getWorld()).gameover();};
+            if(kills>=playeramount-1){((CrabWorld)getWorld()).gameover();};
         }
     }
 }

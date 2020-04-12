@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=PowerUp
-comment0.text=\n\ constructor\ needs\ the\ type\ of\ the\ powerup\n\ \ 0\ \=\ Speed\ Up\n\ \ 1\ \=\ Slow\ Others\n\ \ 2\ \=\ Slow\ Lobster\n\ \ 3\ \=\ Slow\ Down\n\ \ 4\ \=\ Boost\ others\n\ \ 5\ \=\ Boost\ Lobseter\n
-comment1.params=kind
-comment1.target=PowerUp(int)
-comment2.params=
-comment2.target=int\ type()
-numComments=3

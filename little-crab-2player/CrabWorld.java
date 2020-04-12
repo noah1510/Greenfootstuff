@@ -10,6 +10,7 @@ public class CrabWorld extends World
     public Vector players;
     public Vector powerups;
     public Lobster lobster;
+    private boolean paused = false;
     
     //defines the number of players
     static final int playernumber = 2;
@@ -33,7 +34,7 @@ public class CrabWorld extends World
         players = new Vector();
         powerups = new Vector();
         setBackground(background);
-        prepare();
+        reset();
         
     }
     
@@ -48,7 +49,7 @@ public class CrabWorld extends World
             addObject(((Crab)players.get(i-1)), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(400));
         }
         
-        lobster = new Lobster(playernumber);
+        lobster = new Lobster();
         addObject(lobster, Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(100)+500);
         
         ateworm();
@@ -56,34 +57,64 @@ public class CrabWorld extends World
     }
     
     public void gameover(){
-        reset();
+        updateScore();
         pause();
     }
     
     public void pause(){
-        for (int i = 0;i < playernumber;i++){
-            ((Crab)players.get(i)).canmove(false);
+        if(!paused){
+            for (int i = 0;i < playernumber;i++){
+                ((Crab)players.get(i)).canmove(false);
+            }
+            lobster.canmove(false);
+            paused = true;
         }
-        lobster.canmove(false);
     }
     
     public void restart(){
-        for (int i = 0;i < playernumber;i++){
-            ((Crab)players.get(i)).canmove(true);
+        if(paused){
+            for (int i = 0;i < playernumber;i++){
+                ((Crab)players.get(i)).canmove(true);
+            }
+            lobster.canmove(true);
+            paused = false;
         }
-        lobster.canmove(true);
     }
     
     public void ateworm(){
         Worm worm = new Worm();
         addObject(worm, Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(600));
-        
-        String score = new String();
-        score = "";
+        updateScore();  
+    }
+    
+    public void updateScore(){
+        boolean won = false;
+        int winner = 0;
+        int alive = 0;
         for(int i = 1;i <= playernumber;i++){
-            score += ("P " + i + ":" + ((Crab)players.get(i-1)).getworms() + "\n");
+            Crab player = (Crab)players.get(i-1);
+            showText("P " + i + ":" + player.getworms(),45,10 + 25*i);
+            if(player.getalive()){
+                alive++;
+                if(alive == 1 && !won){
+                    winner = i;
+                }
+            }
+            
+            if(player.getworms() == 20){
+                winner = i;
+                won = true;
+            }
+            
         }
-        showText(score,25,15 + ((int) (playernumber * playernumber * 1.75f)));
+        
+        if(won || alive == 1){
+            
+            showText("Player " + winner + " won!",300,300);
+            Greenfoot.delay(20);
+            showText("",300,300);
+            reset();
+        }
         
     }
     

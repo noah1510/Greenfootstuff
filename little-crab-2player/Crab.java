@@ -203,14 +203,8 @@ public class Crab extends Actor
             }
             
             cworld.ateworm();
-                       
-            if(wormsEaten == 20){
-                cworld.showText("Player " + player_num + " won!",300,300);
-                Greenfoot.delay(20);
-                cworld.showText("",300,300);
-                cworld.reset();
-            }
         }
+    
         
         
     }
