@@ -12,12 +12,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
 
 public class Crab extends Actor
 {
-    private GreenfootImage image1;
-    private GreenfootImage image2;
+    private final GreenfootImage image1;
+    private final GreenfootImage image2;
     private int wormsEaten;   
     private boolean canmove;
-    private int player_num;
-    private float modifier = 0.75f;
+    private final int player_num;
+    private final float modifier = 0.75f;
     private boolean killed;
     private int boosts = 0;
     private int slows = 0;
@@ -27,23 +27,12 @@ public class Crab extends Actor
      */
     public Crab(int player)
     {    
-        switch(player){
-            case(1):
-                image1 = new GreenfootImage("crab.png");
-                image2 = new GreenfootImage("crab2.png");
-                break;
-            case(2):
-            case(3):
-            case(4):
-            case(5):
-            case(6):
-            case(7):
-            case(8):
-                image1 = new GreenfootImage("crab-" + player + ".png");
-                image2 = new GreenfootImage("crab2-" + player + ".png");
-                break;
-            default:
-                break;
+        if(player == 1){
+            image1 = new GreenfootImage("crab.png");
+            image2 = new GreenfootImage("crab2.png");
+        }else{
+            image1 = new GreenfootImage("crab-" + player + ".png");
+            image2 = new GreenfootImage("crab2-" + player + ".png");
         }
         
         killed = false;
@@ -59,12 +48,7 @@ public class Crab extends Actor
     }
     
     public boolean getalive(){
-        if(killed){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return !killed;
     }
     
     public int getworms(){
@@ -73,7 +57,7 @@ public class Crab extends Actor
     
     public void canmove(boolean canmov){
         //System.out.println("Set canmove to " + canmov);
-        if (killed == true){
+        if (killed){
             canmove = false;
         }
         else{
@@ -95,10 +79,10 @@ public class Crab extends Actor
         if(Greenfoot.isKeyDown("Escape")){
             ((CrabWorld)getWorld()).pause();
         }
-         if(Greenfoot.isKeyDown("space")){
+        if(Greenfoot.isKeyDown("space")){
             ((CrabWorld)getWorld()).restart();
         } 
-        if(canmove == true){
+        if(canmove){
             checkKeypress();
             if((5 + ((int) (modifier * wormsEaten)) + (boosts * 4) - (slows * 4)) > 0){
                 move(5 + ((int) (modifier * wormsEaten)) + (boosts * 4) - (slows * 4) );
@@ -165,23 +149,41 @@ public class Crab extends Actor
         PowerUp powerup = (PowerUp) getOneIntersectingObject(PowerUp.class);
         if ( powerup != null) {
             CrabWorld cworld = (CrabWorld) getWorld();
+            if(powerup.isSpeedUp()){
+                boost();
+            }
+            if(powerup.isSlowOthers()){
+                cworld.slowothers(player_num);
+            }
+            if(powerup.isSlowLobster()){
+                cworld.lobster.slow();
+            }
+            if(powerup.isSlowDown()){
+                slow();
+            }
+            if(powerup.isBoostOthers()){
+                cworld.boostothers(player_num);
+            }
+            if(powerup.isBoostLobster()){
+                cworld.lobster.boost();
+            }
             switch(powerup.type()){
-                case(0):
+                case(PowerUp.SpeedUp):
                     boost();
                     break;
-                case(1):
+                case(PowerUp.SlowOthers):
                     cworld.slowothers(player_num);
                     break;
-                case(2):
+                case(PowerUp.SlowLobster):
                     cworld.lobster.slow();
                     break;
-                case(3):
+                case(PowerUp.SlowDown):
                     slow();
                     break;
-                case(4):
+                case(PowerUp.BoostOthers):
                     cworld.boostothers(player_num);
                     break;
-                case(5):
+                case(PowerUp.BoostLobster):
                     cworld.lobster.boost();
                     break;
                 default:

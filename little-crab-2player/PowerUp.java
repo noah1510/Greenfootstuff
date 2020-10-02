@@ -7,16 +7,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *  2 = Slow Lobster
  *  3 = Slow Down
  *  4 = Boost others
- *  5 = Boost Lobseter
+ *  5 = Boost Lobster
  */
 
 
 public class PowerUp extends Actor{
     
-    private int type;
-    private GreenfootImage image;
-
-    public PowerUp(int kind){
+    static public final int SpeedUp = 0;
+    static public final int SlowOthers = 1;  
+    static public final int SlowLobster = 2; 
+    static public final int SlowDown = 3; 
+    static public final int BoostOthers = 4;  
+    static public final int BoostLobster = 5; 
+    
+    private final int type;
+    private final GreenfootImage image;
+    
+    public PowerUp(int kind) throws PowerUpException{
         type = kind;
         switch(type){
             case(0):
@@ -32,13 +39,39 @@ public class PowerUp extends Actor{
                 image = new GreenfootImage("bananas.png");
                 break;
             default:
-                break;
+                throw new PowerUpException("Invalid PowerU Type");
         }
         setImage(image);
     }
 
-    public int type(){
+    public final int type(){
         return type;
     }
+    
+    public final boolean isSpeedUp(){
+        return type == SpeedUp;
+    }
+    
+    public final boolean isSlowOthers(){
+        return type == SlowOthers;
+    }
+    
+    public final boolean isSlowLobster(){
+        return type == SlowLobster;
+    }
+    
+    public final boolean isSlowDown(){
+        return type == SlowDown;
+    }
+    
+    public final boolean isBoostOthers(){
+        return type == BoostOthers;
+    }
+    
+    public final boolean isBoostLobster(){
+        return type == BoostLobster;
+    }
+    
+     
 
 }

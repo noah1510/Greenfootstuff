@@ -71,7 +71,7 @@ public class Level
         player.canmove(false);
     }
 
-    protected void countDown(){ 
+    protected final void countDown(){ 
         for(int i = 5;i > 0; i--){
             System.out.println("" + i);
             _world.showText("" + i, 300, 300);

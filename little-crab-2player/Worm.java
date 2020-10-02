@@ -4,13 +4,11 @@ import greenfoot.*;
  * Worm. A sand worm. Very yummy. Especially crabs really like it.
  */
 public class Worm extends Actor{
-    private GreenfootImage image1;
-    private GreenfootImage image2;
+    private final GreenfootImage image1 = new GreenfootImage("worm1.png");
+    private final GreenfootImage image2 = new GreenfootImage("worm1_1.png");
     private int counter;
     
     public Worm(){
-        image1 = new GreenfootImage("worm1.png");
-        image2 = new GreenfootImage("worm1_1.png");
         setImage(image1);
         counter = 0;
     }
@@ -18,7 +16,6 @@ public class Worm extends Actor{
     public void act(){
         counter++;
         switchImage();
-
     }
 
     private void switchImage(){

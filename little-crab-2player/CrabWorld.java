@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class CrabWorld extends World
 {
-    private GreenfootImage background;
+    private final GreenfootImage background;
     public Vector players;
     public Vector powerups;
     public Lobster lobster;
@@ -120,11 +120,16 @@ public class CrabWorld extends World
     
     public void spawnpowerup(){
         int temp = Greenfoot.getRandomNumber(6);
-        powerups.add(new PowerUp(temp));
-        addObject(((PowerUp)powerups.lastElement()), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(600));
+        try{
+            PowerUp power = new PowerUp(temp);
+            powerups.add(power);
+            addObject(((PowerUp)powerups.lastElement()), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(600));
+        }catch(PowerUpException e){
+            System.out.Println(e.getMessage());
+        }
     }
     
-    public void reset(){
+    public final void reset(){
         removeObjects(getObjects(Actor.class));
         players.clear();
         powerups.clear();

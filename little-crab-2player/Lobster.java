@@ -15,17 +15,13 @@ public class Lobster extends Actor
 {
     private boolean canmove;
     private int kills = 0;
-    private Vector playerscore;
-    private Vector playernumbers;
-    private int playeramount;
+    private final int playeramount;
     private int boosts = 0;
     private int slows = 0;
     
     public Lobster(){
         canmove = true;
         playeramount = CrabWorld.playernumber;
-        playerscore = new Vector();
-        playernumbers = new Vector();
     }
     
     /**
