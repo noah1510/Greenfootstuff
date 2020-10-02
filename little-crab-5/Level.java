@@ -10,10 +10,10 @@ import java.util.*;
 public class Level  
 {
     // instance variables - replace the example below with your own
-    protected int _stage;
+    private int _stage;
     private CrabWorld _world;
-    private List worms = new ArrayList();
-    private List lobsters = new ArrayList();
+    final private List worms = new ArrayList();
+    final private List lobsters = new ArrayList();
     private Crab player;
 
     /**
@@ -43,29 +43,29 @@ public class Level
     /**
      * This function retruns how many worms are in the world
      */
-    public int getWormAmount(){
+    public final int getWormAmount(){
         return worms.size();
     }      
     
     /**
      * This function returns in which stage of the game you are, in other world the number of the level.
      */
-    public int getStage(){
+    public final int getStage(){
         return _stage;
     }
     
-    protected void spawnWorm(){
+    protected final void spawnWorm(){
         worms.add(new Worm());
         _world.addObject((Worm)worms.get(worms.size()-1), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(600));
     }
     
-    protected void spawnLobster(){
+    protected final void spawnLobster(){
         lobsters.add(new Lobster());
         _world.addObject((Lobster)lobsters.get(lobsters.size()-1), Greenfoot.getRandomNumber(100)+300, Greenfoot.getRandomNumber(100)+300);
         ((Lobster)lobsters.get(lobsters.size()-1)).canmove(false);
     }
     
-    protected void spawnPlayer(){
+    protected final void spawnPlayer(){
         player = new Crab();
         _world.addObject(player, Greenfoot.getRandomNumber(100)+100, Greenfoot.getRandomNumber(100)+100);
         player.canmove(false);

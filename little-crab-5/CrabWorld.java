@@ -20,7 +20,7 @@ public class CrabWorld extends World
         nextLevel();
     }
     
-    public void nextLevel(){
+    public final void nextLevel(){
         level++;
         if(level == 6){
             System.out.println("Spiel abgeschlossen");
@@ -35,11 +35,11 @@ public class CrabWorld extends World
         allowedtomove = true;
     }
     
-    public int getWormCount(){
+    public final int getWormCount(){
         return currentLevel.getWormAmount();
     }
     
-    public void stop(){
+    public final void stop(){
         if(allowedtomove){
             java.util.List lobster = getObjects(Lobster.class);
             java.util.List crab = getObjects(Crab.class);
@@ -52,7 +52,7 @@ public class CrabWorld extends World
         }
     }
     
-    public void start(){
+    public final void start(){
         if(allowedtomove){
             java.util.List lobster = getObjects(Lobster.class);
             java.util.List crab = getObjects(Crab.class);
@@ -65,14 +65,14 @@ public class CrabWorld extends World
         }
     }
     
-    private void Leveldestroy(){
+    private final void Leveldestroy(){
         System.out.println("clearing level" + (level - 1) );
         removeObjects(getObjects(Actor.class));
         currentLevel = null;
         System.gc();
     }
 
-    public void reset(){
+    public final void reset(){
         System.out.println("starting reset");
         Leveldestroy();  
         showText("",300,300);
