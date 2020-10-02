@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.*;
 
 /**
  * This class defines the common parent of all the level classes.
@@ -9,12 +10,10 @@ import greenfoot.*;
 public class Level  
 {
     // instance variables - replace the example below with your own
-    protected int stage;
-    private int numberOfWorms;
-    private int numberOfLobsters;
+    protected int _stage;
     private CrabWorld _world;
-    private Worm[] worms;
-    private Lobster[] lobsters;
+    private List worms = new ArrayList();
+    private List lobsters = new ArrayList();
     private Crab player;
 
     /**
@@ -24,42 +23,46 @@ public class Level
     {
         _world = world;
     }
+    
+    public Level(CrabWorld world, int stage, int numberOfWorms, int numberOfLobsters){
+        this(world);
+        for(int i = 0;i < numberOfWorms;i++){
+            spawnWorm();
+        }
+        for(int i = 0;i < numberOfLobsters;i++){
+            spawnLobster();
+        }
+        spawnPlayer();
+        countDown();
+        
+        _stage = stage;
+        
+        System.out.println("starting level " + _stage);
+    }
 
     /**
      * This function retruns how many worms are in the world
      */
     public int getWormAmount(){
-        return numberOfWorms;
+        return worms.size();
     }      
     
     /**
      * This function returns in which stage of the game you are, in other world the number of the level.
      */
     public int getStage(){
-        return stage;
+        return _stage;
     }
     
     protected void spawnWorm(){
-        numberOfWorms++;
-        Worm[] _worms = new Worm[numberOfWorms];
-        for(int i = 0; i < numberOfWorms-1;i++){
-            _worms[i] = worms[i];
-        }
-        _worms[numberOfWorms-1] = new Worm();
-        _world.addObject(_worms[numberOfWorms-1], Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(600));
-        worms = _worms;
+        worms.add(new Worm());
+        _world.addObject((Worm)worms.get(worms.size()-1), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(600));
     }
     
     protected void spawnLobster(){
-        numberOfLobsters++;
-        Lobster[] _lobsters = new Lobster[numberOfWorms];
-        for(int i = 0; i < numberOfLobsters-1;i++){
-            _lobsters[i] = lobsters[i];
-        }
-        _lobsters[numberOfLobsters-1] = new Lobster();
-        _world.addObject(_lobsters[numberOfLobsters-1], Greenfoot.getRandomNumber(100)+300, Greenfoot.getRandomNumber(100)+300);
-        lobsters = _lobsters;
-        lobsters[numberOfLobsters-1].canmove(false);
+        lobsters.add(new Lobster());
+        _world.addObject((Lobster)lobsters.get(lobsters.size()-1), Greenfoot.getRandomNumber(100)+300, Greenfoot.getRandomNumber(100)+300);
+        ((Lobster)lobsters.get(lobsters.size()-1)).canmove(false);
     }
     
     protected void spawnPlayer(){
@@ -78,7 +81,8 @@ public class Level
 
         _world.showText(" ", 300, 300);    
         player.canmove(true);
-        for(Lobster x: lobsters){
+        for(int i = 0; i < lobsters.size();i++){
+            Lobster x = (Lobster) lobsters.get(i);
             if(x != null) x.canmove(true);
         }
     }
@@ -86,17 +90,18 @@ public class Level
     static public Level load(int stageNumber, CrabWorld world){
         switch(stageNumber){
             case(1):
-                return new Level_1(world);
+                return new Level(world,1,5,1);
             case(2):
-                return new Level_2(world);
+                return new Level(world,2,7,1);
             case(3):
-                return new Level_3(world);
+                return new Level(world,3,7,2);
             case(4):
-                return new Level_4(world);
+                return new Level(world,4,10,2);
             case(5):
-                return new Level_5(world);
+                return new Level(world,5,10,3);
             default:
                 return null;   
         }
+        
     }
 }
