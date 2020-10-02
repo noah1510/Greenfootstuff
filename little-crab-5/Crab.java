@@ -12,8 +12,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
 
 public class Crab extends Actor
 {
-    private GreenfootImage image1;
-    private GreenfootImage image2;
+    final private GreenfootImage image1;
+    final private GreenfootImage image2;
     private int wormsEaten;   
     private boolean canmove;
     /**
@@ -38,7 +38,7 @@ public class Crab extends Actor
      */
     public void act()
     {
-        if(canmove == true){
+        if(canmove){
             checkKeypress();
             move(5);
             lookForWorm();
@@ -100,31 +100,10 @@ public class Crab extends Actor
             wormsEaten = wormsEaten + 1;
             CrabWorld cworld = (CrabWorld) getWorld();
             
-            switch(cworld.level){
-                case(1):
-                    if(wormsEaten == 5){
-                        System.out.println("ate 5 worms");
-                        cworld.level++;
-                        cworld.prepare();
-                    }
-                    break;
-                case(2): 
-                case(3):
-                    if(wormsEaten == 7){
-                        System.out.println("ate 7 worms");
-                        cworld.level++;
-                        cworld.prepare();
-                    }
-                    break;
-                case(4):
-                case(5):
-                    if(wormsEaten == 10){
-                        System.out.println("ate 10 worms");
-                        cworld.level++;
-                        cworld.prepare();
-                    }
-                    break;
+            if(wormsEaten == cworld.getWormCount()){
+                cworld.nextLevel();
             }
+            
         }
     }
 }
