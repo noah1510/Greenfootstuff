@@ -29,7 +29,7 @@ public class Lobster extends Actor
      */
     public void act()
     {
-        if(canmove == true){
+        if(canmove){
             turnAtEdge();
             randomTurn();
             if((5 - (4 * slows) + (4 * boosts)) > 0){

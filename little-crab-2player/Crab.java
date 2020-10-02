@@ -17,7 +17,7 @@ public class Crab extends Actor
     private int wormsEaten;   
     private boolean canmove;
     private final int player_num;
-    private final float modifier = 0.75f;
+    static private float modifier = 0.75f;
     private boolean killed;
     private int boosts = 0;
     private int slows = 0;
@@ -149,24 +149,6 @@ public class Crab extends Actor
         PowerUp powerup = (PowerUp) getOneIntersectingObject(PowerUp.class);
         if ( powerup != null) {
             CrabWorld cworld = (CrabWorld) getWorld();
-            if(powerup.isSpeedUp()){
-                boost();
-            }
-            if(powerup.isSlowOthers()){
-                cworld.slowothers(player_num);
-            }
-            if(powerup.isSlowLobster()){
-                cworld.lobster.slow();
-            }
-            if(powerup.isSlowDown()){
-                slow();
-            }
-            if(powerup.isBoostOthers()){
-                cworld.boostothers(player_num);
-            }
-            if(powerup.isBoostLobster()){
-                cworld.lobster.boost();
-            }
             switch(powerup.type()){
                 case(PowerUp.SpeedUp):
                     boost();
@@ -205,9 +187,7 @@ public class Crab extends Actor
             }
             
             cworld.ateworm();
-        }
-    
-        
+        }      
         
     }
 }

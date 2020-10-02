@@ -42,7 +42,7 @@ public class CrabWorld extends World
      * Prepare the world for the start of the program. That is: create the initial
      * objects and add them to the world.
      */
-    public void prepare()
+    public final void prepare()
     {
         for (int i = 1;i <= playernumber;i++){
             players.add(new Crab(i));
@@ -56,12 +56,12 @@ public class CrabWorld extends World
         
     }
     
-    public void gameover(){
+    public final void gameover(){
         updateScore();
         pause();
     }
     
-    public void pause(){
+    public final void pause(){
         if(!paused){
             for (int i = 0;i < playernumber;i++){
                 ((Crab)players.get(i)).canmove(false);
@@ -71,7 +71,7 @@ public class CrabWorld extends World
         }
     }
     
-    public void restart(){
+    public final void restart(){
         if(paused){
             for (int i = 0;i < playernumber;i++){
                 ((Crab)players.get(i)).canmove(true);
@@ -81,13 +81,13 @@ public class CrabWorld extends World
         }
     }
     
-    public void ateworm(){
+    public final void ateworm(){
         Worm worm = new Worm();
         addObject(worm, Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(600));
         updateScore();  
     }
     
-    public void updateScore(){
+    public final void updateScore(){
         boolean won = false;
         int winner = 0;
         int alive = 0;
@@ -118,14 +118,14 @@ public class CrabWorld extends World
         
     }
     
-    public void spawnpowerup(){
+    public final void spawnpowerup(){
         int temp = Greenfoot.getRandomNumber(6);
         try{
             PowerUp power = new PowerUp(temp);
             powerups.add(power);
             addObject(((PowerUp)powerups.lastElement()), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(600));
         }catch(PowerUpException e){
-            System.out.Println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
     
@@ -137,7 +137,7 @@ public class CrabWorld extends World
         pause();
     }
     
-    public void slowothers(int player){
+    public final void slowothers(int player){
         for (int i = 0; i < playernumber;i++){
             if((i+1)!= player){
                 ((Crab)players.get(i)).slow();
@@ -145,7 +145,7 @@ public class CrabWorld extends World
         }
     }
     
-    public void boostothers(int player){
+    public final void boostothers(int player){
         for (int i = 0; i < playernumber;i++){
             if((i+1)!= player){
                 ((Crab)players.get(i)).boost();
